@@ -1,0 +1,528 @@
+/* ============================================================
+   STROMAE — Bouleverse les Binaires
+   styles.css
+
+   Structure:
+   1. CSS Custom Properties (design tokens)
+   2. Reset / Base
+   3. Accessibility 
+   4. Typography
+   5. Layout — Intro
+   6. Layout — Theme Tabs
+   7. Theme content panels
+   8. Images
+   9. Responsive overrides (mobile-first breakpoints)
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES
+   Single source of truth for colours, spacing, and shadows.
+   Change a token here and it propagates everywhere.
+   ============================================================ */
+:root {
+  /* Brand colours */
+  --colour-bg:           #000;
+  --colour-text:         #fff;
+  --colour-pink:         #FF10F0;
+  --colour-green:        #39FF14;
+  --colour-hot-pink:     #FF007F;
+  --colour-overlay:      rgba(0, 0, 0, 0.5);
+  --colour-panel-green:     rgba(0, 80, 0, 0.8);
+  --colour-panel-pink: rgba(255, 16, 240, 0.6);
+  --colour-panel-border: rgba(255, 255, 255, 0.6);
+
+  /* Glow shadows — defined once, reused across components */
+  --glow-green:  0 0 5px var(--colour-green),
+                 0 0 10px var(--colour-green),
+                 0 0 20px var(--colour-green);
+  --glow-pink:   0 0 5px var(--colour-pink),
+                 0 0 10px var(--colour-pink),
+                 0 0 20px var(--colour-pink);
+  --glow-hotpink:0 0 5px var(--colour-hot-pink),
+                 0 0 10px var(--colour-hot-pink),
+                 0 0 20px var(--colour-hot-pink);
+
+   /* Spacing scale */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  20rem;
+
+  /* Font families */
+  --font-display: "Londrina Shadow", sans-serif;
+  --font-ui:      "Bitcount Prop Single", monospace;
+  --font-body:    "Space Mono", monospace;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-med:  0.4s ease;
+}
+
+
+/* ============================================================
+   2. RESET / BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Smooth scrolling if the user hasn't asked for reduced motion */
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--colour-bg);
+  background-image: url('https://images2.imgbox.com/ae/1d/0rMAx5ns_o.png');
+  background-size: 90%;
+  color: var(--colour-text);
+  font-family: var(--font-body);
+  text-align: center;
+  min-height: 100vh;
+  padding-bottom: var(--space-xl);
+}
+
+
+/* ============================================================
+   3. ACCESSIBILITY 
+   ============================================================ */
+
+/* Skip link: visually hidden until focused by keyboard */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--colour-bg);
+  color: var(--colour-text);
+  padding: var(--space-xs) var(--space-sm);
+  text-decoration: none;
+  z-index: 9999;
+  transform: translateY(-100%);
+  transition: transform var(--transition-fast);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Visually hidden but available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus ring: visible for keyboard users, hidden for mouse users */
+:focus-visible {
+  outline: 3px solid var(--colour-green);
+  outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* ============================================================
+   4. TYPOGRAPHY
+   ============================================================ */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--colour-text);
+  text-shadow: 0 0 20px var(--colour-pink);
+  font-size: clamp(4rem, 15vw, 14rem);
+  line-height: 1.2;
+  margin: var(--space-md);
+}
+
+.fragmented-tagline {
+  display: inline-block;
+  background: var(--colour-overlay);
+  color: var(--colour-text);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: clamp(0.9rem, 2.5vw, 2.2em);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  border: ridge 4px var(--colour-text);
+  box-shadow: var(--glow-green);
+}
+
+
+/* ============================================================
+   5. LAYOUT — INTRODUCTION
+   ============================================================ */
+.introduction {
+  padding: var(--space-md) var(--space-sm);
+}
+
+/* Word-reverse interactive button
+   This reverses the words on the button and changes the text in the box below from English-French*/
+.reverse-btn {
+  cursor: pointer;
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  border: ridge 4px var(--colour-text);
+  border-radius: 5px;
+  background: var(--colour-overlay);
+  color: var(--colour-text);
+  font-family: var(--font-ui);
+  font-size: clamp(0.9rem, 2.5vw, 2.4rem);
+  font-weight: 700;
+  text-align: center;
+  user-select: none;
+  margin-top: var(--space-md);
+  box-shadow: var(--glow-green);
+  animation: pulse 5s linear 5s infinite; /*oscillating glow added to emphasise CTA */
+  animation-delay: 0s;
+}
+
+@keyframes pulse {
+  50%  { box-shadow: var(--glow-pink), 0 0 40px var(--colour-pink); }
+  70%  { box-shadow: var(--glow-pink), 0 0 40px var(--colour-pink); }  /* hold pink */
+  90%  {box-shadow: var(--glow-green); }
+  100% { box-shadow: var(--glow-green); }
+}
+
+.reverse-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--colour-text);
+}
+
+/*This colours the three words on the button to emphasise when they are reversed*/
+.reverse-btn span:nth-child(1) { color: var(--colour-hot-pink); }
+.reverse-btn span:nth-child(2) { color: var(--colour-text); }
+.reverse-btn span:nth-child(3) { color: var(--colour-green); }
+
+
+.intro {
+  position: relative;
+  background: var(--colour-bg);
+  padding: var(--space-sm);
+  max-width: 750px;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  border: solid var(--colour-text) 2px;
+  margin: 0 auto;
+  margin-top: -1.5rem;
+  margin-bottom: var(--space-xl);
+  z-index: -1;
+}
+
+
+.intro-box {
+  padding: var(--space-xs);
+}
+
+/* ============================================================
+   6. LAYOUT — THEME TABS
+   ============================================================ */
+.themes {
+  /* Increased the top margin so rotated side tabs didn't clip the intro */
+  margin: var(--space-md) auto;
+  max-width: 1000px;
+  position: relative;
+  /* Horizontal padding to stop the rotated side tabs from disappearing off-screen */
+  padding: 0 var(--space-lg);
+}
+
+.theme-frame {
+  position: relative;
+  min-height: 750px;
+  width: 100%;
+  box-sizing: border-box;
+  border: ridge 4px var(--colour-text);
+  background: rgba(0, 0, 0, 0.3);
+  overflow: visible;
+}
+
+/* This resets list styles for the various tabs; items are absolutely positioned */
+.theme-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ---- Individual tab buttons ---- */
+.tab-btn {
+  font-family: var(--font-ui);
+  font-size: clamp(1rem, 3vw, 2.2rem);
+  color: var(--colour-text);
+  background: rgba(0, 0, 0, 0.7);
+  border: ridge 4px var(--colour-text);
+  padding: var(--space-xs) var(--space-sm);
+  cursor: pointer;
+  box-shadow: var(--glow-green);
+  transition: all var(--transition-med);
+  min-width: 260px;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  box-shadow: var(--glow-pink);
+}
+
+.tab-btn.active,
+.tab-btn[aria-selected="true"] {
+  box-shadow: var(--glow-hotpink);
+}
+
+/* ---- Tab positions ---- */
+/* The blank tab is a button that resets the 'theme' section to a blank box*/
+.tab-blank {
+  position: absolute;
+  top: -30px;
+  left: 35%;
+}
+
+.tab-blank .tab-btn {
+  height: 60px;
+  min-width: 280px;
+  box-shadow: var(--glow-green);
+}
+
+.tab-opposition {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform-origin: left center;
+  transform: translateY(105px) rotate(-90deg);
+}
+
+.tab-composition {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Right side: rotated 90° clockwise */
+.tab-multiplication {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform-origin: right center;
+  transform: translateY(105px) rotate(90deg);
+}
+
+/* ============================================================
+   7. THEME CONTENT PANELS
+   Shared base styles apply to all panels.
+   Each panel is hidden by default; .active makes it visible.
+   Some specific tweaks for certain tabs and theme content.
+   ============================================================ */
+.theme-content {
+  display: none;
+  padding: 40px;
+}
+
+.content-opposition,
+.content-composition,
+.content-multiplication {
+  display: none;
+}
+
+.content-opposition.active,
+.content-composition.active,
+.content-multiplication.active {
+  display: block;
+}
+
+.content-text {
+  position: absolute;
+  top: 350px;
+  background: var(--colour-panel-green);
+  color: var(--colour-text);
+  text-align: left;
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 10px;
+  box-shadow: 0 0 10px var(--colour-text);
+  max-width: 90%;
+  margin: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Composition and multiplication have different offsets to accommodate different image sizes/length of text content */
+.content-composition .content-text {
+  top: 500px;
+  background: var(--colour-panel-pink);
+
+}
+.content-multiplication .content-text {
+  top: 400px;
+}
+
+/* ============================================================
+   8. IMAGES
+   ============================================================ */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: fit-content;
+  margin: 0 auto;
+  padding-top: 2px;
+  position: relative;
+  transform: translateY(25px);
+}
+
+.image-frame {
+  flex: 1;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
+}
+
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-frame:nth-child(1) {
+  border: solid 3px var(--colour-hot-pink);
+  box-shadow: 0 4px 20px var(--colour-text);
+}
+
+.image-frame:nth-child(2) {
+  border: solid 3px var(--colour-green);
+  box-shadow: 0 4px 20px var(--colour-text);
+}
+
+/* Zoom on the composition image */
+.content-composition .image-frame:first-child img{
+  transform: scale(1.1);
+  object-position: left;
+}
+
+/* Zoomed crop on both multiplication images */
+.content-multiplication .image-frame img {
+  transform: scale(1.6);
+}
+
+.content-multiplication .image-frame:first-child img {
+  transform-origin: left;
+}
+
+.content-multiplication .image-frame:nth-child(2) img {
+  transform-origin: right;
+}
+
+
+/* ============================================================
+   9. RESPONSIVE OVERRIDES
+   ============================================================ */
+
+/* --- Small phones (e.g., less than 480px) -------------------------------- */
+@media (max-width: 480px) {
+  /* Stack tabs vertically; remove absolute positioning */
+  .theme-tabs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+    position: static;
+    padding: var(--space-xs);
+  }
+
+  .tab-blank,
+  .tab-opposition,
+  .tab-composition,
+  .tab-multiplication {
+    position: static;
+    transform: none;
+  }
+
+  .tab-btn {
+    min-width: unset;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .theme-frame {
+    min-height: unset;
+    padding-top: var(--space-sm);
+    overflow: hidden;
+  }
+
+  .content-text {
+    position: static;
+    margin-top: var(--space-sm);
+    max-width: 100%;
+    font-size: 0.85rem;
+  }
+
+  .image-container {
+    flex-direction: column;
+    align-items: center;
+    transform: none;
+  }
+
+  .image-frame {
+    max-width: 90vw;
+  }
+
+  .themes {
+    padding: 0 var(--space-xs);
+    margin: var(--space-md) auto;
+  }
+}
+
+/* --- Tablets (481px–768px) ------------------------------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .themes {
+    padding: 0 var(--space-md);
+  }
+
+  .tab-btn {
+    font-size: 1.2rem;
+    min-width: 180px;
+  }
+
+  .content-text {
+    font-size: 0.9rem;
+    top: 160px;
+  }
+
+  .content-composition .content-text,
+  .content-multiplication .content-text {
+    top: 200px;
+  }
+
+  .image-frame {
+    max-width: 180px;
+  }
+}
+
+/* --- Desktop (larger than 900px). This restores the rotated tab layout ---- */
+@media (min-width: 900px) {
+  .tab-btn {
+    font-size: 2.2rem;
+  }
+}
