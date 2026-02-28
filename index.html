@@ -1,0 +1,392 @@
+<DOCTYPE! html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An exploration of Stromae, stereotypes, & the musical disruption of binaries" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Space+Mono&family=Rubik+Dirt&family=Bitcount+Prop+Single&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Stromae et l'Opposition des Binaires</title>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <header role="banner">
+      <!-- keeping header for future content -->
+    </header>
+
+    <main id="main">
+
+       <!-- =====================
+           INTRODUCTION SECTION
+           ===================== -->
+      <section class="introduction" aria-label="Stromae's name in transformation">
+        <h1>STROMAE</h1>
+        <p class="fragmented-tagline">Bouleverse les Binaires</p>
+
+        <h1 aria-label="Maestro">MAESTRO</h1>
+        <p class="fragmented-tagline">Mélange les Contraires et</p>
+
+        <h1>MOSAERT</h1>
+
+        <!--
+          "Renverse nos Attentes" is the pun at the heart of the page.
+          Clicking this button BOTH reverses the word order of the tagline
+          AND swaps the intro text from English to French — the button
+          performs the very action it names. Uses <button> (not <h2>)
+          for correct semantics; aria-pressed communicates toggle state.
+        -->
+        <button
+          id="reverse-btn"
+          class="reverse-btn"
+          aria-pressed="false"
+          aria-label="Renverse nos Attentes — switch to French"
+        >
+          <span>Renverse</span>
+          <span>nos</span>
+          <span>Attentes</span>
+        </button>
+      </section>
+
+      <!-- =====================
+           INTRO / LANGUAGE TOGGLE
+           ===================== -->
+      <section class="intro" aria-label="Introduction">
+
+        <div class="intro-box" id="intro-text" aria-live="polite">
+
+          <!-- English copy (shown by default) -->
+          <div class="english-text" lang="en">
+            <p>
+              Stromae's music skewers stereotypes.
+              It troubles the stories we tell, exposes how we cast ourselves - and others - in binary roles (even as we rail against them) and draws our
+              contradictions into the light.<br /><br />
+              Even his name refuses to be still.<br /><br />
+              Look closely and Stromae will bend, with a verlan twist, into the
+              figure of a Maestro. Then transform again, slipping into the creative house of Mosaert, echoing another musical genius.
+            </p>
+          </div>
+
+          <!-- French copy (hidden until toggled) -->
+          <div class="french-text" lang="fr" hidden>
+            <p>
+              La musique de Stromae pourfend les stéréotypes. Elle bouscule nos récits, expose comment on s'enferme soi - et les
+              autres - dans des rôles binaires (même en les rejetant), et fait
+              affleurer nos contradictions.<br /><br />
+              Même son nom refuse de tenir en place.<br /><br />
+              Regardez encore, et Stromae se plie, par le verlan, en
+              Maestro. Puis il se transforme encore, se glissant dans la maison créative Mosaert, faisant un echo d'un autre génie musical.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =====================
+           THEME TABS SECTION
+           ===================== -->
+
+      <!--
+        Tab pattern follows the ARIA Authoring Practices Guide (APG):
+        - role="tablist" on the <ul>
+        - role="tab" on each <button>
+        - role="tabpanel" on each content panel
+        - aria-selected and aria-controls/aria-labelledby wire them together
+        Keyboard navigation (arrow keys) is handled in JS below.
+      -->
+      <section class="themes" aria-label="Themes">
+        <div class="theme-frame" id="theme-frame">
+
+          <ul class="theme-tabs" role="tablist" aria-label="Stromae themes">
+
+            <!-- Blank / reset tab (visually hidden label, accessible via aria-label) -->
+            <li class="tab-blank" role="presentation">
+              <button
+                class="tab-btn"
+                role="tab"
+                id="tab-blank"
+                aria-selected="true"
+                aria-controls="content-blank"
+                data-theme="blank"
+                aria-label="Clear selection"
+              ></button>
+            </li>
+
+            <li class="tab-opposition" role="presentation">
+              <button
+                class="tab-btn"
+                role="tab"
+                id="tab-opposition"
+                aria-selected="false"
+                aria-controls="content-opposition"
+                data-theme="opposition"
+              >OPPOSITION</button>
+            </li>
+            
+            <li class="tab-multiplication" role="presentation">
+              <button
+                class="tab-btn"
+                role="tab"
+                id="tab-multiplication"
+                aria-selected="false"
+                aria-controls="content-multiplication"
+                data-theme="multiplication"
+              >MULTIPLICATION</button>
+            </li>
+          </ul>
+
+            <li class="tab-composition" role="presentation">
+              <button
+                class="tab-btn"
+                role="tab"
+                id="tab-composition"
+                aria-selected="false"
+                aria-controls="content-composition"
+                data-theme="composition"
+              >COMPOSITION</button>
+            </li>
+
+          <!-- Hidden blank panel (default state — no content shown) -->
+          <div
+            class="theme-content"
+            id="content-blank"
+            role="tabpanel"
+            aria-labelledby="tab-blank"
+          ></div>
+
+          <!-- OPPOSITION panel -->
+          <div
+            class="theme-content content-opposition"
+            id="content-opposition"
+            role="tabpanel"
+            aria-labelledby="tab-opposition"
+            hidden
+          >
+            <div class="image-container">
+              <div class="image-frame">
+                <img
+                  src="https://images2.imgbox.com/e0/11/4Mc94Dla_o.png"
+                  alt="Stromae dressed in masculine clothing, reflected in a mirror"
+                
+                />
+              </div>
+              <div class="image-frame">
+                <img
+                  src="https://images2.imgbox.com/5f/5e/6sfQ6lhv_o.png"
+                  alt="Stromae dressed in feminine clothing, reflected in a mirror"
+                />
+              </div>
+            </div>
+            <p class="content-text">
+              <strong>Tous Les Mêmes</strong> tells the story of a couple whose
+              relationship is falling apart - collapsing under the
+              corrosive influence of misogyny &amp; reductive gender roles. In the
+              music video, Stromae embodies both partners, splitting himself in two
+              to reveal their opposing views.<br /><br />
+              <strong>Bâtard</strong> examines the role of stereotypes more
+              broadly, dissecting people into binary 'categories' to expose how
+              lenses of race, class, &amp; sexuality prevent us from seeing &amp;
+              embracing our differences.
+              <br /><br />
+              <em
+                >T'es d'droite ou t'es d'gauche ? T'es beauf ou bobo d'Paris? |
+                Sois t'es l'un ou soit t'es l'autre, t'es un homme ou bien tu
+                péris | Cultrice ou patéticienne, féministe ou la ferme | mais
+                t'es phobe ou sexuel?</em
+              >
+            </p>
+          </div>
+          
+             <!-- COMPOSITION panel -->
+          <div
+            class="theme-content content-composition"
+            id="content-composition"
+            role="tabpanel"
+            aria-labelledby="tab-composition"
+            hidden
+          >
+            <div class="image-container">
+              <div class="image-frame">
+                <img
+                  src="https://images2.imgbox.com/51/4a/2UQFli04_o.jpg"
+                  alt="Sheet music or score for Tous Les Mêmes"
+                />
+              </div>
+              <div class="image-frame">
+                <img
+                  src="https://thumbs2.imgbox.com/17/d7/cCgoRChe_t.jpg"
+                  alt="Music notation showing rhythmic dissonance in Tous Les Mêmes"
+                />
+              </div>
+            </div>
+            <p class="content-text">
+                   <strong>Papaoutai</strong> &amp; <strong>Quand c'est?</strong> set up dissonance - and even arguments - between music and words: puncturing playful, upbeat melodies with lyrics that speak of abandonment, sickness,
+              &amp; death.<br /><br />Or is it the reverse? Do these melodies brighten the darkness which the lyrics recount, pushing us towards dance (&amp; each other) as a counterpoint to pain?
+            </p>
+          </div>
+          
+           <!-- MULTIPLICATION panel -->
+          <div
+            class="theme-content content-multiplication"
+            id="content-multiplication"
+            role="tabpanel"
+            aria-labelledby="tab-multiplication"
+            hidden
+          >
+            <div class="image-container">
+              <div class="image-frame">
+                <img
+                  src="https://thumbs2.imgbox.com/d8/14/4yvptXOE_t.jpg"
+                  alt="Album artwork for Racine Carrée"/>
+              </div>
+              <div class="image-frame">
+                <img
+                  src="https://thumbs2.imgbox.com/4a/66/CS8AZCou_t.jpg"
+                  alt="Stromae performing live, surrounded by layered visual effects"
+                />
+              </div>
+            </div>
+            <p class="content-text">
+              <strong>Racine Carrée</strong> hints at a mathematical exercise:
+              tracing something back to its root(s) &amp; transforming a single origin — through multiple iterations — into something new. What
+              emerges might be very different from how it began, but it cannot be
+              severed from its past, or its component parts.<br /><br />
+              This mirrors the album's explorations of heritage &amp; hybridity,
+              expressed through the (harmonious) collisions of culture &amp; sound. Through West African rhythms, Belgian EDM, hip-hop, Congolese
+              rumba, chanson française, and more, Stromae creates tapestries that hold stories for everyone - to be translated differently with every dance.
+            </p>
+          </div>
+
+       
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================
+         JAVASCRIPT
+         ======================
+         Kept at end of <body> so the DOM is already parsed before the
+         script runs — no need for DOMContentLoaded wrappers.
+    -->
+    <script>
+      /* -------------------------------------------------
+         UTILITY: activate a tab by its data-theme value
+         ------------------------------------------------- */
+      function activateTab(theme) {
+        const allTabs    = document.querySelectorAll('.tab-btn[role="tab"]');
+        const allPanels  = document.querySelectorAll('.theme-content');
+
+        // Reset all tabs and panels
+        allTabs.forEach(t => {
+          t.setAttribute('aria-selected', 'false');
+          t.classList.remove('active');
+          t.tabIndex = -1;               // Only the active tab is reachable by Tab key
+        });
+        allPanels.forEach(p => {
+          p.hidden = true;
+          p.classList.remove('active');
+        });
+
+        // Activate the chosen tab
+        const chosenTab   = document.getElementById('tab-' + theme);
+        const chosenPanel = document.getElementById('content-' + theme);
+
+        if (chosenTab) {
+          chosenTab.setAttribute('aria-selected', 'true');
+          chosenTab.classList.add('active');
+          chosenTab.tabIndex = 0;
+        }
+        if (chosenPanel) {
+          chosenPanel.hidden = false;
+          chosenPanel.classList.add('active');
+        }
+      }
+
+      /* -------------------------------------------------
+         TAB CLICK EVENTS
+         ------------------------------------------------- */
+      document.querySelectorAll('.tab-btn[role="tab"]').forEach(btn => {
+        btn.addEventListener('click', () => activateTab(btn.dataset.theme));
+      });
+
+      /* -------------------------------------------------
+         TAB KEYBOARD NAVIGATION (APG roving tabindex)
+         Arrow keys move between tabs; Enter/Space activate.
+         ------------------------------------------------- */
+      const tabOrder = ['blank', 'opposition', 'composition', 'multiplication'];
+
+      document.querySelectorAll('.tab-btn[role="tab"]').forEach(btn => {
+        btn.addEventListener('keydown', e => {
+          const current = tabOrder.indexOf(btn.dataset.theme);
+          let next;
+
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            next = (current + 1) % tabOrder.length;
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            next = (current - 1 + tabOrder.length) % tabOrder.length;
+          } else {
+            return; // Let other keys pass through normally
+          }
+
+          e.preventDefault();
+          const nextBtn = document.getElementById('tab-' + tabOrder[next]);
+          nextBtn.focus();
+          activateTab(tabOrder[next]);
+        });
+      });
+
+      // Initialise blank tab as selected on load
+      activateTab('blank');
+
+      /* -------------------------------------------------
+         "RENVERSE NOS ATTENTES" — the pun button
+         One click does two things simultaneously:
+           1. Reverses the word order of the tagline
+              (Renverse nos Attentes → Attentes nos Renverse)
+           2. Swaps the intro text from English to French
+         The button enacts exactly what it says.
+         ------------------------------------------------- */
+      const reverseBtn  = document.getElementById('reverse-btn');
+      const englishText = document.querySelector('.english-text');
+      const frenchText  = document.querySelector('.french-text');
+
+      let isReversed = false;
+
+      const WORDS_NORMAL   = ['Renverse', 'nos', 'Attentes'];
+      const WORDS_REVERSED = ['Attentes', 'nos', 'Renverse'];
+
+      reverseBtn.addEventListener('click', () => {
+        isReversed = !isReversed;
+        const words = isReversed ? WORDS_REVERSED : WORDS_NORMAL;
+
+        // 1. Update button text and ARIA state
+        reverseBtn.setAttribute('aria-pressed', String(isReversed));
+        reverseBtn.setAttribute(
+          'aria-label',
+          isReversed
+            ? words.join(' ') + ' — switch to English'
+            : words.join(' ') + ' — switch to French'
+        );
+        reverseBtn.querySelectorAll('span').forEach((span, i) => {
+          span.textContent = words[i];
+        });
+
+        // 2. Swap language — `hidden` is used (not CSS classes alone)
+        //    so assistive technology correctly exposes/hides the content
+        englishText.hidden = isReversed;
+        frenchText.hidden  = !isReversed;
+      });
+    </script>
+
+  </body>
+</html>
