@@ -1,6 +1,8 @@
 # cyf-stromae
 <h2> Stromae — Bouleverse les Binaires </h1>
 
+[Preview here](https://francis-faolan.github.io/cyf-stromae/)
+
 An interactive landing page exploring how Stromae's music challenges binaries & stereotypes.
 
 Built as a front-end design exercise with an emphasis on accessible, semantic HTML, CSS custom properties, and progressive enhancement.
