@@ -5,7 +5,7 @@
 
 An interactive landing page exploring how Stromae's music challenges binaries & stereotypes.
 
-Built as a front-end design exercise with an emphasis on accessible, semantic HTML, CSS custom properties, and progressive enhancement.
+Built as a front-end design exercise for the Code Your Future Intro to Digital Course. 
 
 <h4> Features: </h4>
 
@@ -17,7 +17,7 @@ Built as a front-end design exercise with an emphasis on accessible, semantic HT
 - Reduced motion support
 
 Built with
-HTML, CSS, vanilla JavaScript - no frameworks or dependencies beyond Google Fonts.
+HTML, CSS, JavaScript 
 
 Licence
 MITLanding page for Code Your Future project
